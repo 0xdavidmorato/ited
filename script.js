@@ -54,8 +54,8 @@ function calcularTotal() {
         let precoCusto = parseFloat(inputs[2].value) || 0;
         let margem = parseFloat(inputs[3].value) || 0;
 
-        // Calculando o preço unitário (preço de custo + margem)
-        let precoUnitario = precoCusto + (precoCusto * margem / 100);
+        // Calculando o preço unitário (Preço de Custo / (1 - Margem/100))
+        let precoUnitario = precoCusto / (1 - (margem / 100));
         let total = quantidade * precoUnitario; // Calculando o valor total
 
         // Atualizando os campos de preço unitário e valor total
