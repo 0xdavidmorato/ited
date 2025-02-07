@@ -13,41 +13,27 @@ function importarExcel() {
         
         for (let i = 1; i < sheet.length; i++) {
             let row = sheet[i];
-            
-            // Verificar se a linha tem pelo menos 3 colunas: Nome, Quantidade e Preço Unitário
             if (row.length < 3) continue;
-            
             let tr = document.createElement("tr");
             
-            // Nome do material (primeira coluna)
-            let tdNome = document.createElement("td");
-            tdNome.innerHTML = row[0] || '';  // Garantir que não venha vazio
-            tr.appendChild(tdNome);
+            // Criando os campos de input para as 3 primeiras colunas (Item, Quantidade, Preço de Custo)
+            for (let j = 0; j < 3; j++) {
+                let td = document.createElement("td");
+                td.innerHTML = `<input type='text' value='${row[j]}' oninput='calcularTotal()'>`;
+                tr.appendChild(td);
+            }
             
-            // Quantidade (segunda coluna)
-            let tdQuantidade = document.createElement("td");
-            tdQuantidade.innerHTML = `<input type='number' value='${row[1] || 0}' oninput='calcularTotal()'>`;
-            tr.appendChild(tdQuantidade);
+            // Criando os campos de input para as 3 últimas colunas (Margem, Preço Unitário, Valor Total)
+            for (let j = 3; j < 6; j++) {
+                let td = document.createElement("td");
+                if (j === 3) {
+                    td.innerHTML = `<input type='number' value='0' oninput='calcularTotal()'>`; // Margem
+                } else {
+                    td.innerHTML = `<span>0.00</span>`; // Preço Unitário e Valor Total
+                }
+                tr.appendChild(td);
+            }
             
-            // Preço Unitário (terceira coluna)
-            let tdPrecoUnitario = document.createElement("td");
-            tdPrecoUnitario.innerHTML = `<input type='number' value='${row[2] || 0}' oninput='calcularTotal()'>`;
-            tr.appendChild(tdPrecoUnitario);
-            
-            // Preencher as colunas extras (Margem e Total) com valores default
-            let tdMargem = document.createElement("td");
-            tdMargem.innerHTML = `<input type='number' value='0' oninput='calcularTotal()'>`;
-            tr.appendChild(tdMargem);
-            
-            let tdPrecoUnitarioFinal = document.createElement("td");
-            tdPrecoUnitarioFinal.innerHTML = `<span>0.00</span>`;
-            tr.appendChild(tdPrecoUnitarioFinal);
-            
-            let tdValorTotal = document.createElement("td");
-            tdValorTotal.innerHTML = `<span>0.00</span>`;
-            tr.appendChild(tdValorTotal);
-            
-            // Adicionar a linha à tabela
             tabela.appendChild(tr);
         }
     };
@@ -57,25 +43,33 @@ function importarExcel() {
 
 function calcularTotal() {
     let linhas = document.querySelectorAll("#materiaisTabela tr");
-    let totalGeral = 0;
     
+    // Loop para cada linha da tabela, exceto a primeira (cabeçalho)
     for (let i = 1; i < linhas.length; i++) {
         let inputs = linhas[i].querySelectorAll("input");
         let spans = linhas[i].querySelectorAll("span");
 
+        // Obtendo os valores dos campos de entrada
         let quantidade = parseFloat(inputs[1].value) || 0;
         let precoCusto = parseFloat(inputs[2].value) || 0;
         let margem = parseFloat(inputs[3].value) || 0;
 
+        // Calculando o preço unitário (preço de custo + margem)
         let precoUnitario = precoCusto + (precoCusto * margem / 100);
-        let total = quantidade * precoUnitario;
+        let total = quantidade * precoUnitario; // Calculando o valor total
 
+        // Atualizando os campos de preço unitário e valor total
         spans[0].innerText = precoUnitario.toFixed(2);
         spans[1].innerText = total.toFixed(2);
-        
-        totalGeral += total;
     }
     
+    // Atualizando o total geral (soma de todos os valores totais)
+    let totalGeral = 0;
+    for (let i = 1; i < linhas.length; i++) {
+        let spans = linhas[i].querySelectorAll("span");
+        totalGeral += parseFloat(spans[1].innerText) || 0;
+    }
+
     document.getElementById("orcamento_final").innerText = totalGeral.toFixed(2);
 }
 
