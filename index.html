@@ -27,6 +27,17 @@
         <input type="file" id="fileInput" accept=".xls,.xlsx">
         <button class="btn" onclick="importarExcel()">Importar</button>
         
+        <h3>Dados da Instalação</h3>
+        <label>Tipo de Instalação:
+            <input type="text" id="tipo_instalacao">
+        </label>
+        <label>Área (m²):
+            <input type="number" id="area">
+        </label>
+        <label>Distância (km):
+            <input type="number" id="distancia" oninput="calcularDeslocacao()">
+        </label>
+        
         <h3>Materiais</h3>
         <table id="materiaisTabela">
             <tr>
@@ -38,7 +49,25 @@
                 <th>Valor Total (€)</th>
             </tr>
         </table>
-
+        
+        <h3>Mão de Obra</h3>
+        <label>Valor por Dia (€):
+            <input type="number" id="valor_dia" value="260">
+        </label>
+        <label>Capacidade de Instalação por Dia:
+            <input type="number" id="capacidade_dia">
+        </label>
+        <label>Dias Necessários:
+            <input type="number" id="dias" readonly>
+        </label>
+        <label>Margem sobre Mão de Obra (%):
+            <input type="number" id="margem_mao_obra" oninput="calcularMaoObra()">
+        </label>
+        <p><b>Total Mão de Obra (€):</b> <span id="total_mao_obra">0.00</span></p>
+        
+        <h3>Deslocação</h3>
+        <p><b>Total Deslocação (€):</b> <span id="total_deslocacao">0.00</span></p>
+        
         <h3>Total Geral</h3>
         <p><b>Orçamento Final (€):</b> <span id="orcamento_final">0.00</span></p>
         
