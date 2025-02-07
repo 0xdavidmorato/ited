@@ -11,10 +11,13 @@ body {
     padding: 20px; 
     border-radius: 8px; 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
 }
 
 h2, h3 { 
     color: #333; 
+    margin-bottom: 15px;
 }
 
 label { 
@@ -24,11 +27,20 @@ label {
 }
 
 input { 
-    width: 100%; 
+    width: calc(100% - 20px); /* Adiciona um pequeno espaçamento dentro do input */
     padding: 10px; 
     margin-top: 5px; 
     border: 1px solid #ddd; 
     border-radius: 5px; 
+}
+
+h3 { 
+    margin-top: 20px; 
+}
+
+#fileInput {
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 table { 
@@ -57,4 +69,19 @@ th {
     cursor: pointer; 
     margin-top: 20px; 
     text-align: center; 
+}
+
+form { 
+    display: grid; 
+    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* cria um layout responsivo */
+}
+
+form label {
+    display: flex;
+    flex-direction: column;
+}
+
+form input {
+    margin-bottom: 10px;
 }
