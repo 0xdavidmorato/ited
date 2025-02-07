@@ -27,7 +27,7 @@ label {
 }
 
 input { 
-    width: calc(100% - 20px); /* Adiciona um pequeno espaçamento dentro do input */
+    width: calc(100% - 20px); 
     padding: 10px; 
     margin-top: 5px; 
     border: 1px solid #ddd; 
