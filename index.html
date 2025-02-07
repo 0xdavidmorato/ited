@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Orçamento ITED</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Orçamento ITED</h2>
+        
+        <h3>Dados do Cliente</h3>
+        <label>Nome do Cliente:
+            <input type="text" id="nome_cliente">
+        </label>
+        <label>Obra:
+            <input type="text" id="obra">
+        </label>
+        <label>Orçamento Nº:
+            <input type="text" id="orc_numero">
+        </label>
+        
+        <h3>Importar Planilha de Materiais</h3>
+        <input type="file" id="fileInput" accept=".xls,.xlsx">
+        <button class="btn" onclick="importarExcel()">Importar</button>
+        
+        <h3>Materiais</h3>
+        <table id="materiaisTabela">
+            <tr>
+                <th>Item</th>
+                <th>Quantidade</th>
+                <th>Preço de Custo (€)</th>
+                <th>Margem (%)</th>
+                <th>Preço Unitário (€)</th>
+                <th>Valor Total (€)</th>
+            </tr>
+        </table>
+
+        <h3>Total Geral</h3>
+        <p><b>Orçamento Final (€):</b> <span id="orcamento_final">0.00</span></p>
+        
+        <button class="btn" onclick="gerarPDF()">Exportar para PDF</button>
+    </div>
+</body>
+</html>
