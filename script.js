@@ -13,21 +13,41 @@ function importarExcel() {
         
         for (let i = 1; i < sheet.length; i++) {
             let row = sheet[i];
+            
+            // Verificar se a linha tem pelo menos 3 colunas: Nome, Quantidade e Preço Unitário
             if (row.length < 3) continue;
+            
             let tr = document.createElement("tr");
             
-            for (let j = 0; j < 3; j++) {
-                let td = document.createElement("td");
-                td.innerHTML = `<input type='text' value='${row[j]}' oninput='calcularTotal()'>`;
-                tr.appendChild(td);
-            }
+            // Nome do material (primeira coluna)
+            let tdNome = document.createElement("td");
+            tdNome.innerHTML = row[0] || '';  // Garantir que não venha vazio
+            tr.appendChild(tdNome);
             
-            for (let j = 3; j < 6; j++) {
-                let td = document.createElement("td");
-                td.innerHTML = `<span>0.00</span>`;
-                tr.appendChild(td);
-            }
+            // Quantidade (segunda coluna)
+            let tdQuantidade = document.createElement("td");
+            tdQuantidade.innerHTML = `<input type='number' value='${row[1] || 0}' oninput='calcularTotal()'>`;
+            tr.appendChild(tdQuantidade);
             
+            // Preço Unitário (terceira coluna)
+            let tdPrecoUnitario = document.createElement("td");
+            tdPrecoUnitario.innerHTML = `<input type='number' value='${row[2] || 0}' oninput='calcularTotal()'>`;
+            tr.appendChild(tdPrecoUnitario);
+            
+            // Preencher as colunas extras (Margem e Total) com valores default
+            let tdMargem = document.createElement("td");
+            tdMargem.innerHTML = `<input type='number' value='0' oninput='calcularTotal()'>`;
+            tr.appendChild(tdMargem);
+            
+            let tdPrecoUnitarioFinal = document.createElement("td");
+            tdPrecoUnitarioFinal.innerHTML = `<span>0.00</span>`;
+            tr.appendChild(tdPrecoUnitarioFinal);
+            
+            let tdValorTotal = document.createElement("td");
+            tdValorTotal.innerHTML = `<span>0.00</span>`;
+            tr.appendChild(tdValorTotal);
+            
+            // Adicionar a linha à tabela
             tabela.appendChild(tr);
         }
     };
