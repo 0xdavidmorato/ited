@@ -16,26 +16,29 @@ function importarExcel() {
         let sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
         
         let tabela = document.getElementById("materiaisTabela");
+        
+        // Definir cabeçalho com 6 colunas
         tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Preço Unitário (€)</th><th>Valor Total (€)</th></tr>";
         
         sheet.slice(1).forEach(row => {
-            if (row.length < 3) return;
+            if (row.length < 4) return;  // Garantir que há pelo menos 4 dados (Item, Quantidade, Custo, Margem)
             let tr = document.createElement("tr");
             
-            // Criar células para "Item", "Quantidade" e "Preço de Custo"
-            for (let i = 0; i < 3; i++) {
+            // Criar células para "Item", "Quantidade", "Preço de Custo" e "Margem"
+            for (let i = 0; i < 4; i++) {
                 let td = document.createElement("td");
                 td.innerHTML = `<input type='text' value='${row[i] || ''}' oninput='calcularTotal()'>`;
                 tr.appendChild(td);
             }
             
-            // Não criar o campo de "Preço Unitário" diretamente da planilha, pois ele será calculado
-            ["number", "number", "span", "span"].forEach((type, j) => {
+            // Para o "Preço Unitário" e "Valor Total", criaremos inputs para calculá-los dinamicamente
+            ["number", "span"].forEach((type, j) => {
                 let td = document.createElement("td");
                 td.innerHTML = type === "span" ? `<span>0.00</span>` : `<input type='${type}' value='0' oninput='calcularTotal()'>`;
                 tr.appendChild(td);
             });
             
+            // Adicionar a linha à tabela
             tabela.appendChild(tr);
         });
     };
@@ -53,19 +56,21 @@ function calcularTotal() {
         let precoCusto = parseFloat(inputs[2].value) || 0;
         let margem = parseFloat(inputs[3].value) || 0;
         
-        // Calcular preço unitário com base no preço de custo e margem
+        // Calcular o Preço Unitário com base no Custo e na Margem
         let precoUnitario = precoCusto / (1 - (margem / 100));
         let total = quantidade * precoUnitario;
         
-        // Atualizar os campos "Preço Unitário" e "Valor Total"
-        spans[0].innerText = precoUnitario.toFixed(2);  // Atualiza o "Preço Unitário (€)"
-        spans[1].innerText = total.toFixed(2);          // Atualiza o "Valor Total (€)"
+        // Atualizar os campos de "Preço Unitário" e "Valor Total"
+        spans[0].innerText = precoUnitario.toFixed(2);  // Preço Unitário (€)
+        spans[1].innerText = total.toFixed(2);          // Valor Total (€)
         
         totalGeral += total;
     });
     
+    // Exibir o total geral
     document.getElementById("orcamento_final").innerText = totalGeral.toFixed(2);
 }
+
 
 function calcularMaoObra() {
     // ATE
