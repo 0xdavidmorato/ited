@@ -17,7 +17,7 @@ function importarExcel() {
         
         let tabela = document.getElementById("materiaisTabela");
         // **Corrigimos o cabeçalho, incluindo "Preço Unitário (€)" antes de "Valor Total (€)"**
-        tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Preço Unitário (€)</th><th>Valor Total (€)</th></tr>"; 
+        tabela.innerHTML = "<tr><th>Item</th><th>Qtd</th><th>Custo</th><th>Marg %</th><th>P. Unit</th><th>Total (€)</th></tr>"; 
         
         sheet.slice(1).forEach(row => {
             if (row.length < 4) return;  // Esperamos pelo menos 4 colunas da planilha
