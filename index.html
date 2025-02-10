@@ -41,6 +41,7 @@
                             <th>Equipamento</th>
                             <th>Quantidade</th>
                             <th>Dias Necessários</th>
+                            <th>Valor Dia (€)</th> <!-- Novo campo -->
                             <th>Total (€)</th>
                         </tr>
                     </thead>
@@ -48,19 +49,22 @@
                         <tr>
                             <td>ATE</td>
                             <td><input type="number" id="qtd_ate" oninput="calcularMaoObra()"></td>
-                            <td><input type="number" id="dias_ate"></td>
+                            <td><input type="number" id="dias_ate" oninput="calcularMaoObra()"></td>
+                            <td><input type="number" id="valor_dia_ate" oninput="calcularMaoObra()"></td> <!-- Novo campo -->
                             <td><span id="total_ate">0.00</span></td>
                         </tr>
                         <tr>
                             <td>ATIS</td>
                             <td><input type="number" id="qtd_atis" oninput="calcularMaoObra()"></td>
-                            <td><input type="number" id="dias_atis"></td>
+                            <td><input type="number" id="dias_atis" oninput="calcularMaoObra()"></td>
+                            <td><input type="number" id="valor_dia_atis" oninput="calcularMaoObra()"></td> <!-- Novo campo -->
                             <td><span id="total_atis">0.00</span></td>
                         </tr>
                         <tr>
                             <td>Bastidores</td>
                             <td><input type="number" id="qtd_bastidores" oninput="calcularMaoObra()"></td>
-                            <td><input type="number" id="dias_bastidores"></td>
+                            <td><input type="number" id="dias_bastidores" oninput="calcularMaoObra()"></td>
+                            <td><input type="number" id="valor_dia_bastidores" oninput="calcularMaoObra()"></td> <!-- Novo campo -->
                             <td><span id="total_bastidores">0.00</span></td>
                         </tr>
                         <!-- Adicionar os outros equipamentos aqui -->
@@ -68,6 +72,7 @@
                 </table>
             </div>
         </div>
+
         
         <!-- Deslocação -->
         <div class="section">
