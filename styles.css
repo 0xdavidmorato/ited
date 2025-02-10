@@ -118,3 +118,54 @@ td input {
 .btn:hover {
     background: #218838;
 }
+
+/* Garante que a tabela respeite as larguras definidas */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+}
+
+/* Estilização da tabela */
+#materiaisTabela {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Mantém as larguras das colunas fixas */
+}
+
+/* Define as colunas da tabela */
+#materiaisTabela th, #materiaisTabela td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Define as larguras exatas das colunas */
+#materiaisTabela th:nth-child(1), 
+#materiaisTabela td:nth-child(1) { width: 35%; } /* Item */
+
+#materiaisTabela th:nth-child(2),
+#materiaisTabela td:nth-child(2) { width: 10%; } /* Quantidade */
+
+#materiaisTabela th:nth-child(3),
+#materiaisTabela td:nth-child(3) { width: 15%; } /* Preço de Custo */
+
+#materiaisTabela th:nth-child(4),
+#materiaisTabela td:nth-child(4) { width: 10%; } /* Margem */
+
+#materiaisTabela th:nth-child(5),
+#materiaisTabela td:nth-child(5) { width: 15%; } /* Preço Unitário */
+
+#materiaisTabela th:nth-child(6),
+#materiaisTabela td:nth-child(6) { width: 15%; } /* Valor Total */
+
+/* Ajusta os inputs dentro das células */
+#materiaisTabela td input {
+    width: 100%; /* Ocupa toda a largura disponível */
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+}
