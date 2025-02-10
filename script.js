@@ -62,21 +62,26 @@ function calcularTotal() {
 }
 
 function calcularMaoObra() {
-    const equipamentos = {
-        "qtd_ate": 3, "qtd_atis": 10, "qtd_bastidores": 3, "qtd_rj45": 100,
-        "qtd_utp": 6, "qtd_pigtail": 30, "qtd_certificacao": 100, "qtd_derivadores": 10,
-        "qtd_tv": 60, "qtd_coaxiais": 6, "qtd_antenas": 1
-    };
-    
-    let totalMaoObra = 0;
-    Object.keys(equipamentos).forEach(id => {
-        let qtd = parseFloat(document.getElementById(id).value) || 0;
-        let dias = qtd > 0 ? Math.ceil(qtd / equipamentos[id]) : 0;
-        document.getElementById("dias_" + id.split("_")[1]).value = dias;
-        totalMaoObra += dias * 260; // Valor fixo do dia no Porto (pode ser ajustado para Lisboa)
-    });
-    document.getElementById("total_mao_obra").innerText = totalMaoObra.toFixed(2);
-    calcularTotal();
+    // ATE
+    let qtd_ate = document.getElementById("qtd_ate").value;
+    let dias_ate = document.getElementById("dias_ate").value;
+    let valor_dia_ate = document.getElementById("valor_dia_ate").value;
+    let total_ate = (qtd_ate * dias_ate * valor_dia_ate) || 0; // Garante que o valor seja 0 caso os campos estejam vazios ou inválidos
+    document.getElementById("total_ate").innerText = total_ate.toFixed(2); // Atualiza o total
+
+    // ATIS
+    let qtd_atis = document.getElementById("qtd_atis").value;
+    let dias_atis = document.getElementById("dias_atis").value;
+    let valor_dia_atis = document.getElementById("valor_dia_atis").value;
+    let total_atis = (qtd_atis * dias_atis * valor_dia_atis) || 0; // Garante que o valor seja 0 caso os campos estejam vazios ou inválidos
+    document.getElementById("total_atis").innerText = total_atis.toFixed(2); // Atualiza o total
+
+    // Bastidores
+    let qtd_bastidores = document.getElementById("qtd_bastidores").value;
+    let dias_bastidores = document.getElementById("dias_bastidores").value;
+    let valor_dia_bastidores = document.getElementById("valor_dia_bastidores").value;
+    let total_bastidores = (qtd_bastidores * dias_bastidores * valor_dia_bastidores) || 0; // Garante que o valor seja 0 caso os campos estejam vazios ou inválidos
+    document.getElementById("total_bastidores").innerText = total_bastidores.toFixed(2); // Atualiza o total
 }
 
 function calcularDeslocacao() {
