@@ -32,11 +32,21 @@ function importarExcel() {
             }
 
             // Criar células para "Margem (%)", "Preço Unitário (€) (calculado)" e "Valor Total (€)"
-            ["number", "span", "span"].forEach((type, j) => {
-                let td = document.createElement("td");
-                td.innerHTML = type === "span" ? `<span>0.00</span>` : `<input type='${type}' value='0' oninput='calcularTotal()'>`;
-                tr.appendChild(td);
-            });
+            // Criar célula para "Margem (%)" com valor padrão de 25%
+let margemTd = document.createElement("td");
+margemTd.innerHTML = `<input type='number' value='25' oninput='calcularTotal()'>`; // Margem padrão 25%
+tr.appendChild(margemTd);
+
+// Criar célula para "Preço Unitário (€) (calculado)"
+let precoUnitarioTd = document.createElement("td");
+precoUnitarioTd.innerHTML = `<span>0.00</span>`; // Preço Unitário será calculado
+tr.appendChild(precoUnitarioTd);
+
+// Criar célula para "Valor Total (€) (calculado)"
+let valorTotalTd = document.createElement("td");
+valorTotalTd.innerHTML = `<span>0.00</span>`; // Valor Total será calculado
+tr.appendChild(valorTotalTd);
+
 
             tabela.appendChild(tr);
         });
