@@ -10,68 +10,88 @@
 </head>
 <body>
     <div class="container">
-        <h2>Calculadora de Orçamento ITED</h2>
         
-        <h3>Dados do Cliente</h3>
-        <label>Nome do Cliente:
-            <input type="text" id="nome_cliente">
-        </label>
-        <label>Obra:
-            <input type="text" id="obra">
-        </label>
-        <label>Orçamento Nº:
-            <input type="text" id="orc_numero">
-        </label>
-        
-        <h3>Importar Planilha de Materiais</h3>
-        <input type="file" id="fileInput" accept=".xls,.xlsx">
-        <button class="btn" onclick="importarExcel()">Importar</button>
-        
-        <h3>Dados da Instalação</h3>
-        <label>Tipo de Instalação:
-            <input type="text" id="tipo_instalacao">
-        </label>
-        <label>Área (m²):
-            <input type="number" id="area">
-        </label>
-        <label>Distância (km):
-            <input type="number" id="distancia" oninput="calcularDeslocacao()">
-        </label>
-        
-        <h3>Materiais</h3>
-        <table id="materiaisTabela">
-            <tr>
-                <th>Item</th>
-                <th>Quantidade</th>
-                <th>Preço de Custo (€)</th>
-                <th>Margem (%)</th>
-                <th>Preço Unitário (€)</th>
-                <th>Valor Total (€)</th>
-            </tr>
-        </table>
-        
-        <h3>Mão de Obra</h3>
-        <label>Valor por Dia (€):
-            <input type="number" id="valor_dia" value="260">
-        </label>
-        <label>Capacidade de Instalação por Dia:
-            <input type="number" id="capacidade_dia">
-        </label>
-        <label>Dias Necessários:
-            <input type="number" id="dias" readonly>
-        </label>
-        <label>Margem sobre Mão de Obra (%):
-            <input type="number" id="margem_mao_obra" oninput="calcularMaoObra()">
-        </label>
-        <p><b>Total Mão de Obra (€):</b> <span id="total_mao_obra">0.00</span></p>
-        
-        <h3>Deslocação</h3>
-        <p><b>Total Deslocação (€):</b> <span id="total_deslocacao">0.00</span></p>
-        
-        <h3>Total Geral</h3>
-        <p><b>Orçamento Final (€):</b> <span id="orcamento_final">0.00</span></p>
-        
-        <button class="btn" onclick="gerarPDF()">Exportar para PDF</button>
+        <!-- Dados do Cliente -->
+        <div class="section">
+            <h3>Dados do Cliente</h3>
+            <label>Nome do Cliente:
+                <input type="text" id="nome_cliente">
+            </label>
+            <label>Obra:
+                <input type="text" id="obra">
+            </label>
+            <label>Orçamento Nº:
+                <input type="text" id="orc_numero" readonly>
+            </label>
+        </div>
+
+        <!-- Importação de Materiais -->
+        <div class="section">
+            <h3>Importar Planilha de Materiais</h3>
+            <input type="file" id="fileInput" accept=".xls,.xlsx">
+            <button class="btn" onclick="importarExcel()">Importar</button>
+        </div>
+
+        <!-- Tabela de Materiais -->
+        <div class="section">
+            <h3>Materiais</h3>
+            <table id="materiaisTabela">
+                <tr>
+                    <th>Item</th>
+                    <th>Quantidade</th>
+                    <th>Preço de Custo (€)</th>
+                    <th>Margem (%)</th>
+                    <th>Preço Unitário (€)</th>
+                    <th>Valor Total (€)</th>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Cálculo de Mão de Obra -->
+        <div class="section">
+            <h3>Mão de Obra</h3>
+            <label>Região:
+                <select id="regiao" onchange="calcularMaoObra()">
+                    <option value="porto">Porto (260€/dia)</option>
+                    <option value="lisboa">Lisboa (350€/dia)</option>
+                </select>
+            </label>
+            <label>Equipamento:
+                <select id="equipamento" onchange="calcularMaoObra()">
+                    <option value="ATE">ATE (3/dia)</option>
+                    <option value="ATIS">ATIS (10/dia)</option>
+                    <option value="Bastidores">Bastidores (3/dia)</option>
+                    <option value="Tomadas RJ45">Tomadas RJ45 (100/dia)</option>
+                    <option value="Paineis UTP">Paineis UTP (6/dia)</option>
+                    <option value="Pigtail">Pigtail (30/dia)</option>
+                    <option value="Certificação">Certificação (100/dia)</option>
+                    <option value="Derivadores">Derivadores (10/dia)</option>
+                    <option value="Tomadas TV">Tomadas TV (60/dia)</option>
+                    <option value="Paineis Coaxiais">Paineis Coaxiais (6/dia)</option>
+                    <option value="Mastros e Antenas">Mastros e Antenas (1/dia)</option>
+                </select>
+            </label>
+            <label>Quantidade:
+                <input type="number" id="qtd_equipamento" oninput="calcularMaoObra()">
+            </label>
+            <p><b>Total Mão de Obra (€):</b> <span id="total_mao_obra">0.00</span></p>
+        </div>
+
+        <!-- Cálculo de Deslocação -->
+        <div class="section">
+            <h3>Deslocação</h3>
+            <label>Distância (km):
+                <input type="number" id="distancia" oninput="calcularDeslocacao()">
+            </label>
+            <p><b>Total Deslocação (€):</b> <span id="total_deslocacao">0.00</span></p>
+        </div>
+
+        <!-- Total Geral -->
+        <div class="section">
+            <h3>Total Geral</h3>
+            <p><b>Orçamento Final (€):</b> <span id="orcamento_final">0.00</span></p>
+            <button class="btn" onclick="gerarPDF()">Exportar para PDF</button>
+        </div>
     </div>
 </body>
 </html>
