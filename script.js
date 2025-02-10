@@ -15,23 +15,34 @@ function importarExcel() {
         let sheetName = workbook.SheetNames[0];
         let sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
         
+        // Verificar os dados importados
+        console.log("Dados importados da planilha:", sheet);
+        
         let tabela = document.getElementById("materiaisTabela");
         
-        // Definir cabeçalho com 6 colunas
+        // Definir cabeçalho da tabela
         tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Preço Unitário (€)</th><th>Valor Total (€)</th></tr>";
         
+        // Verificar se a planilha contém dados
+        if (sheet.length < 2) {
+            console.error("Planilha não contém dados suficientes.");
+            return;
+        }
+        
+        // Iterar pelas linhas da planilha, ignorando o cabeçalho
         sheet.slice(1).forEach(row => {
-            if (row.length < 4) return;  // Garantir que há pelo menos 4 dados (Item, Quantidade, Custo, Margem)
+            if (row.length < 4) return;  // Garantir que há pelo menos 4 dados para preencher a linha
+            
             let tr = document.createElement("tr");
             
-            // Criar células para "Item", "Quantidade", "Preço de Custo" e "Margem"
+            // Preencher as 4 primeiras células (Item, Quantidade, Preço de Custo, Margem)
             for (let i = 0; i < 4; i++) {
                 let td = document.createElement("td");
                 td.innerHTML = `<input type='text' value='${row[i] || ''}' oninput='calcularTotal()'>`;
                 tr.appendChild(td);
             }
             
-            // Para o "Preço Unitário" e "Valor Total", criaremos inputs para calculá-los dinamicamente
+            // Preencher as células para "Preço Unitário" (calculado) e "Valor Total"
             ["number", "span"].forEach((type, j) => {
                 let td = document.createElement("td");
                 td.innerHTML = type === "span" ? `<span>0.00</span>` : `<input type='${type}' value='0' oninput='calcularTotal()'>`;
@@ -70,6 +81,7 @@ function calcularTotal() {
     // Exibir o total geral
     document.getElementById("orcamento_final").innerText = totalGeral.toFixed(2);
 }
+
 
 
 function calcularMaoObra() {
