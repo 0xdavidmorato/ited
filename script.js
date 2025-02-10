@@ -16,7 +16,7 @@ function importarExcel() {
         let sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
         
         let tabela = document.getElementById("materiaisTabela");
-        tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Valor Total (€)</th></tr>";
+        tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Preço Unitário (€)</th><th>Valor Total (€)</th></tr>";
         
         sheet.slice(1).forEach(row => {
             if (row.length < 3) return;
