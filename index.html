@@ -31,6 +31,26 @@
             <input type="file" id="fileInput" accept=".xls,.xlsx">
             <button class="btn" onclick="importarExcel()">Importar</button>
         </div>
+        <!-- Tabela para exibir os dados importados -->
+        <div class="section">
+            <h3>Tabela de Materiais</h3>
+            <table id="materiaisTabela">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade</th>
+                        <th>Preço de Custo (€)</th>
+                        <th>Margem (%)</th>
+                        <th>Preço Unitário (€)</th>
+                        <th>Valor Total (€)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- As linhas da tabela serão inseridas aqui -->
+                </tbody>
+            </table>
+        </div>
+
         
         <!-- Mão de Obra -->
         <div class="section">
