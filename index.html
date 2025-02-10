@@ -14,15 +14,18 @@
         <!-- Dados do Cliente -->
         <div class="section">
             <h3>Dados do Cliente</h3>
-            <label>Nome do Cliente:
+            <div class="form-group">
+                <label for="nome_cliente">Nome:</label>
                 <input type="text" id="nome_cliente">
-            </label>
-            <label>Obra:
+            </div>
+            <div class="form-group">
+                <label for="obra">Obra:</label>
                 <input type="text" id="obra">
-            </label>
-            <label>Orçamento Nº:
+            </div>
+            <div class="form-group">
+                <label for="orc_numero">Orçamento Nº:</label>
                 <input type="text" id="orc_numero" readonly>
-            </label>
+            </div>
         </div>
 
         <!-- Importação de Materiais -->
@@ -50,39 +53,56 @@
         <!-- Cálculo de Mão de Obra -->
         <div class="section">
             <h3>Mão de Obra</h3>
-            <label>Região:
-                <select id="regiao" onchange="calcularMaoObra()">
-                    <option value="porto">Porto (260€/dia)</option>
-                    <option value="lisboa">Lisboa (350€/dia)</option>
-                </select>
-            </label>
-            <label>Equipamento:
-                <select id="equipamento" onchange="calcularMaoObra()">
-                    <option value="ATE">ATE (3/dia)</option>
-                    <option value="ATIS">ATIS (10/dia)</option>
-                    <option value="Bastidores">Bastidores (3/dia)</option>
-                    <option value="Tomadas RJ45">Tomadas RJ45 (100/dia)</option>
-                    <option value="Paineis UTP">Paineis UTP (6/dia)</option>
-                    <option value="Pigtail">Pigtail (30/dia)</option>
-                    <option value="Certificação">Certificação (100/dia)</option>
-                    <option value="Derivadores">Derivadores (10/dia)</option>
-                    <option value="Tomadas TV">Tomadas TV (60/dia)</option>
-                    <option value="Paineis Coaxiais">Paineis Coaxiais (6/dia)</option>
-                    <option value="Mastros e Antenas">Mastros e Antenas (1/dia)</option>
-                </select>
-            </label>
-            <label>Quantidade:
-                <input type="number" id="qtd_equipamento" oninput="calcularMaoObra()">
-            </label>
+            <label for="regiao">Região:</label>
+            <select id="regiao" onchange="calcularMaoObra()">
+                <option value="porto">Porto (260€/dia)</option>
+                <option value="lisboa">Lisboa (350€/dia)</option>
+            </select>
+
+            <table id="maoDeObraTabela">
+                <tr>
+                    <th>Equipamento</th>
+                    <th>Quantidade</th>
+                    <th>Dias Necessários</th>
+                    <th>Custo (€)</th>
+                </tr>
+                <tr>
+                    <td>ATE</td>
+                    <td><input type="number" id="qtd_ATE" oninput="calcularMaoObra()"></td>
+                    <td><input type="number" id="dias_ATE" readonly></td>
+                    <td><span id="custo_ATE">0.00</span></td>
+                </tr>
+                <tr>
+                    <td>ATIS</td>
+                    <td><input type="number" id="qtd_ATIS" oninput="calcularMaoObra()"></td>
+                    <td><input type="number" id="dias_ATIS" readonly></td>
+                    <td><span id="custo_ATIS">0.00</span></td>
+                </tr>
+                <tr>
+                    <td>Bastidores</td>
+                    <td><input type="number" id="qtd_Bastidores" oninput="calcularMaoObra()"></td>
+                    <td><input type="number" id="dias_Bastidores" readonly></td>
+                    <td><span id="custo_Bastidores">0.00</span></td>
+                </tr>
+                <tr>
+                    <td>Tomadas RJ45</td>
+                    <td><input type="number" id="qtd_Tomadas" oninput="calcularMaoObra()"></td>
+                    <td><input type="number" id="dias_Tomadas" readonly></td>
+                    <td><span id="custo_Tomadas">0.00</span></td>
+                </tr>
+                <!-- Adicione os outros equipamentos seguindo esse mesmo padrão -->
+            </table>
+
             <p><b>Total Mão de Obra (€):</b> <span id="total_mao_obra">0.00</span></p>
         </div>
 
         <!-- Cálculo de Deslocação -->
         <div class="section">
             <h3>Deslocação</h3>
-            <label>Distância (km):
+            <div class="form-group">
+                <label for="distancia">Distância (km):</label>
                 <input type="number" id="distancia" oninput="calcularDeslocacao()">
-            </label>
+            </div>
             <p><b>Total Deslocação (€):</b> <span id="total_deslocacao">0.00</span></p>
         </div>
 
