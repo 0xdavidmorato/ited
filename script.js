@@ -16,10 +16,11 @@ function importarExcel() {
         let sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
         
         let tabela = document.getElementById("materiaisTabela");
-        tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Valor Total (€)</th></tr>"; // Removeu o 'Preço Unitário (€)'
+        // **Corrigimos o cabeçalho, incluindo "Preço Unitário (€)" antes de "Valor Total (€)"**
+        tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Preço Unitário (€)</th><th>Valor Total (€)</th></tr>"; 
         
         sheet.slice(1).forEach(row => {
-            if (row.length < 4) return;  // Agora estamos esperando pelo menos 4 colunas de dados (sem a coluna de "Preço Unitário")
+            if (row.length < 4) return;  // Esperamos pelo menos 4 colunas da planilha
 
             let tr = document.createElement("tr");
 
@@ -30,8 +31,7 @@ function importarExcel() {
                 tr.appendChild(td);
             }
 
-            // Não criar o campo de "Preço Unitário" diretamente da planilha (ele será calculado)
-            // Criar células para "Margem (%)", "Preço Unitário" (calculado) e "Valor Total"
+            // Criar células para "Margem (%)", "Preço Unitário (€) (calculado)" e "Valor Total (€)"
             ["number", "span", "span"].forEach((type, j) => {
                 let td = document.createElement("td");
                 td.innerHTML = type === "span" ? `<span>0.00</span>` : `<input type='${type}' value='0' oninput='calcularTotal()'>`;
