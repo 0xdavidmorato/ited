@@ -67,7 +67,7 @@ function calcularMaoObra() {
     let dias_ate = parseFloat(document.getElementById("dias_ate").value) || 0;
     let valor_dia_ate = parseFloat(document.getElementById("valor_dia_ate").value) || 0;
 
-    let total_ate = qtd_ate * dias_ate * valor_dia_ate;
+    let total_ate = dias_ate * valor_dia_ate;
     document.getElementById("total_ate").innerText = total_ate.toFixed(2); // Atualiza o total ATE
 
     // ATIS
@@ -75,7 +75,7 @@ function calcularMaoObra() {
     let dias_atis = parseFloat(document.getElementById("dias_atis").value) || 0;
     let valor_dia_atis = parseFloat(document.getElementById("valor_dia_atis").value) || 0;
 
-    let total_atis = qtd_atis * dias_atis * valor_dia_atis;
+    let total_atis = dias_atis * valor_dia_atis;
     document.getElementById("total_atis").innerText = total_atis.toFixed(2); // Atualiza o total ATIS
 
     // Bastidores
@@ -83,7 +83,7 @@ function calcularMaoObra() {
     let dias_bastidores = parseFloat(document.getElementById("dias_bastidores").value) || 0;
     let valor_dia_bastidores = parseFloat(document.getElementById("valor_dia_bastidores").value) || 0;
 
-    let total_bastidores = qtd_bastidores * dias_bastidores * valor_dia_bastidores;
+    let total_bastidores = dias_bastidores * valor_dia_bastidores;
     document.getElementById("total_bastidores").innerText = total_bastidores.toFixed(2); // Atualiza o total Bastidores
 }
 
