@@ -22,12 +22,14 @@ function importarExcel() {
             if (row.length < 3) return;
             let tr = document.createElement("tr");
             
+            // Criar células para "Item", "Quantidade" e "Preço de Custo"
             for (let i = 0; i < 3; i++) {
                 let td = document.createElement("td");
                 td.innerHTML = `<input type='text' value='${row[i] || ''}' oninput='calcularTotal()'>`;
                 tr.appendChild(td);
             }
             
+            // Não criar o campo de "Preço Unitário" diretamente da planilha, pois ele será calculado
             ["number", "number", "span", "span"].forEach((type, j) => {
                 let td = document.createElement("td");
                 td.innerHTML = type === "span" ? `<span>0.00</span>` : `<input type='${type}' value='0' oninput='calcularTotal()'>`;
@@ -51,13 +53,17 @@ function calcularTotal() {
         let precoCusto = parseFloat(inputs[2].value) || 0;
         let margem = parseFloat(inputs[3].value) || 0;
         
+        // Calcular preço unitário com base no preço de custo e margem
         let precoUnitario = precoCusto / (1 - (margem / 100));
         let total = quantidade * precoUnitario;
         
-        spans[0].innerText = precoUnitario.toFixed(2);
-        spans[1].innerText = total.toFixed(2);
+        // Atualizar os campos "Preço Unitário" e "Valor Total"
+        spans[0].innerText = precoUnitario.toFixed(2);  // Atualiza o "Preço Unitário (€)"
+        spans[1].innerText = total.toFixed(2);          // Atualiza o "Valor Total (€)"
+        
         totalGeral += total;
     });
+    
     document.getElementById("orcamento_final").innerText = totalGeral.toFixed(2);
 }
 
