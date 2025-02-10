@@ -16,26 +16,28 @@ function importarExcel() {
         let sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
         
         let tabela = document.getElementById("materiaisTabela");
-        tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Preço Unitário (€)</th><th>Valor Total (€)</th></tr>";
+        tabela.innerHTML = "<tr><th>Item</th><th>Quantidade</th><th>Preço de Custo (€)</th><th>Margem (%)</th><th>Valor Total (€)</th></tr>"; // Removeu o 'Preço Unitário (€)'
         
         sheet.slice(1).forEach(row => {
-            if (row.length < 3) return;
+            if (row.length < 4) return;  // Agora estamos esperando pelo menos 4 colunas de dados (sem a coluna de "Preço Unitário")
+
             let tr = document.createElement("tr");
-            
-            // Criar células para "Item", "Quantidade" e "Preço de Custo"
+
+            // Criar células para "Item", "Quantidade" e "Preço de Custo" (colunas 1, 2 e 3)
             for (let i = 0; i < 3; i++) {
                 let td = document.createElement("td");
                 td.innerHTML = `<input type='text' value='${row[i] || ''}' oninput='calcularTotal()'>`;
                 tr.appendChild(td);
             }
-            
-            // Não criar o campo de "Preço Unitário" diretamente da planilha, pois ele será calculado
-            ["number", "number", "span", "span"].forEach((type, j) => {
+
+            // Não criar o campo de "Preço Unitário" diretamente da planilha (ele será calculado)
+            // Criar células para "Margem (%)", "Preço Unitário" (calculado) e "Valor Total"
+            ["number", "span", "span"].forEach((type, j) => {
                 let td = document.createElement("td");
                 td.innerHTML = type === "span" ? `<span>0.00</span>` : `<input type='${type}' value='0' oninput='calcularTotal()'>`;
                 tr.appendChild(td);
             });
-            
+
             tabela.appendChild(tr);
         });
     };
@@ -48,22 +50,22 @@ function calcularTotal() {
     document.querySelectorAll("#materiaisTabela tr:not(:first-child)").forEach(row => {
         let inputs = row.querySelectorAll("input");
         let spans = row.querySelectorAll("span");
-        
+
         let quantidade = parseFloat(inputs[1].value) || 0;
         let precoCusto = parseFloat(inputs[2].value) || 0;
         let margem = parseFloat(inputs[3].value) || 0;
-        
+
         // Calcular preço unitário com base no preço de custo e margem
         let precoUnitario = precoCusto / (1 - (margem / 100));
         let total = quantidade * precoUnitario;
-        
+
         // Atualizar os campos "Preço Unitário" e "Valor Total"
         spans[0].innerText = precoUnitario.toFixed(2);  // Atualiza o "Preço Unitário (€)"
         spans[1].innerText = total.toFixed(2);          // Atualiza o "Valor Total (€)"
-        
+
         totalGeral += total;
     });
-    
+
     document.getElementById("orcamento_final").innerText = totalGeral.toFixed(2);
 }
 
