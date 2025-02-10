@@ -63,23 +63,23 @@ function calcularTotal() {
 
 function calcularMaoObra() {
     // ATE
-    let qtd_ate = document.getElementById("qtd_ate").value;
-    let dias_ate = document.getElementById("dias_ate").value;
-    let valor_dia_ate = document.getElementById("valor_dia_ate").value;
+    let qtd_ate = parseFloat(document.getElementById("qtd_ate").value) || 0;
+    let dias_ate = parseFloat(document.getElementById("dias_ate").value) || 0;
+    let valor_dia_ate = parseFloat(document.getElementById("valor_dia_ate").value) || 0;
     let total_ate = (qtd_ate * dias_ate * valor_dia_ate) || 0; // Garante que o valor seja 0 caso os campos estejam vazios ou inválidos
     document.getElementById("total_ate").innerText = total_ate.toFixed(2); // Atualiza o total
 
     // ATIS
-    let qtd_atis = document.getElementById("qtd_atis").value;
-    let dias_atis = document.getElementById("dias_atis").value;
-    let valor_dia_atis = document.getElementById("valor_dia_atis").value;
+    let qtd_atis = parseFloat(document.getElementById("qtd_atis").value) || 0;
+    let dias_atis = parseFloat(document.getElementById("dias_atis").value) || 0;
+    let valor_dia_atis = parseFloat(document.getElementById("valor_dia_atis").value) || 0;
     let total_atis = (qtd_atis * dias_atis * valor_dia_atis) || 0; // Garante que o valor seja 0 caso os campos estejam vazios ou inválidos
     document.getElementById("total_atis").innerText = total_atis.toFixed(2); // Atualiza o total
 
     // Bastidores
-    let qtd_bastidores = document.getElementById("qtd_bastidores").value;
-    let dias_bastidores = document.getElementById("dias_bastidores").value;
-    let valor_dia_bastidores = document.getElementById("valor_dia_bastidores").value;
+    let qtd_bastidores = parseFloat(document.getElementById("qtd_bastidores").value) || 0;
+    let dias_bastidores = parseFloat(document.getElementById("dias_bastidores").value) || 0;
+    let valor_dia_bastidores = parseFloat(document.getElementById("valor_dia_bastidores").value) || 0;
     let total_bastidores = (qtd_bastidores * dias_bastidores * valor_dia_bastidores) || 0; // Garante que o valor seja 0 caso os campos estejam vazios ou inválidos
     document.getElementById("total_bastidores").innerText = total_bastidores.toFixed(2); // Atualiza o total
 }
